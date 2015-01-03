@@ -28,11 +28,9 @@ io          = require("socket.io")(server)
 
 server.listen config.port, () ->
   address = server.address()
-  debug "Chat.js backend listening at http://%s:%s", address.address, address.port
+  debug "%s listening at http://%s:%s", config.name, address.address, address.port
 
 io.on "connection", (socket) ->
   socket.emit "news", { hello: "world" }
-  socket.on "my other event", (data) ->
-    debug data
 
 module.exports = app

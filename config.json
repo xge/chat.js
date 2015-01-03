@@ -1,4 +1,5 @@
 {
-  "port": 8080,
-  "logger": "chat"
+  "logger": "chat",
+  "name": "chat.js backend",
+  "port": 8080
 }
