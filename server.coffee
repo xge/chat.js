@@ -3,7 +3,7 @@ require('coffee-trace')
 
 bodyParser  = require "body-parser"
 config      = require "./config.json"
-debug       = require("debug")("logger")
+debug       = require("debug")(config.logger)
 express     = require "express"
 morgan      = require "morgan"
 path        = require "path"
@@ -11,10 +11,16 @@ path        = require "path"
 # bootstrap express
 app = express()
 app.use bodyParser.json()
-app.use morgan('dev')
+app.use morgan(config.logger)
 app.use express.static(path.join(__dirname, "build/app"))
+
+# GET /
 app.get "/", (req, res) ->
   res.sendfile "#{__dirname}/build/index.html"
+
+# GET /config
+app.get "/config", (req, res) ->
+  res.sendfile "config.json"
 
 # bootstrap socket.io
 server      = require("http").Server(app)

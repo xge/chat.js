@@ -7,13 +7,36 @@ module.exports = (grunt) ->
         configFile: "coffeelint.json"
       app: ["app/**/*.coffee"],
       server: ["server.coffee"]
+    coffee:
+      app:
+        options:
+          join: true
+        files:
+          "build/app/js/app.js": ["app/**/*.coffee"]
+    concat:
+      lib:
+        src: [
+          "bower_components/angular/angular.js",
+          "bower_components/angular-route/angular-route.js",
+          "bower_components/angular-socket-io/socket.js"
+        ],
+        dest: "build/app/js/lib.js"
     copy:
       index:
         files:
           "build/app/index.html": "app/index.html"
+    html2js:
+      options:
+        base: "app/"
+        module: "chat.tpl"
+      app:
+        src: ["app/**/*.tpl.html"]
+        dest: "build/app/js/tpl.js"
     less:
       app:
         files:
           "build/app/css/app.css": "app/less/app.less"
 
-  grunt.registerTask "default", ["coffeelint", "less", "copy"]
+  grunt.registerTask "coffeescript", ["coffeelint", "coffee"]
+  grunt.registerTask "assets", ["less", "html2js", "concat", "copy"]
+  grunt.registerTask "default", ["coffeescript", "assets"]
