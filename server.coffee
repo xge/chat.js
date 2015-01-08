@@ -3,6 +3,7 @@ require('coffee-trace')
 
 bodyParser  = require "body-parser"
 config      = require "./config.json"
+compression = require "compression"
 debug       = require("debug")(config.logger)
 express     = require "express"
 morgan      = require "morgan"
@@ -10,6 +11,7 @@ path        = require "path"
 
 # bootstrap express
 app = express()
+app.use compression()
 app.use bodyParser.json()
 app.use morgan(config.logger)
 app.use express.static(path.join(__dirname, "build/app"))
