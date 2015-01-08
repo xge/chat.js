@@ -6,6 +6,7 @@ config      = require "./config.json"
 compression = require "compression"
 debug       = require("debug")(config.logger)
 express     = require "express"
+moment      = require "moment"
 morgan      = require "morgan"
 path        = require "path"
 
@@ -33,6 +34,15 @@ server.listen config.port, () ->
   debug "%s listening at http://%s:%s", config.name, address.address, address.port
 
 io.on "connection", (socket) ->
-  socket.emit "news", { hello: "world" }
+  socket.emit "msg",
+    timestamp: moment().valueOf()
+    user: "System"
+    payload: "Welcome to #{ config.name }"
+
+  socket.on "msg", (msg) ->
+    socket.broadcast.emit "msg",
+      timestamp: msg.timestamp
+      user: msg.user
+      payload: msg.payload
 
 module.exports = app

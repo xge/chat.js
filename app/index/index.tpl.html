@@ -6,13 +6,23 @@
   </div>
   <div class="row">
     <div class="col-xs-9 col-md-10">
-      <pre ng-repeat="message in index.messages">{{ message }}</pre>
+      <div class="well" ng-repeat="message in index.messages">
+        [{{ message.timestamp | date:"mediumTime" }}] {{ message.user }}:  {{ message.payload }}
+      </div>
     </div>
     <div class="col-xs-3 col-md-1">
       clist
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">message</div>
+    <div class="col-xs-12">
+      <form name="formMsg" class="form-inline" ng-submit="index.send()" novalidate>
+        <div class="form-group">
+          <label for="inputMsg" class="control-label">Message</label>
+          <input type="text" class="form-control" id="inputMsg" ng-model="index.currentPayload" required />
+          <button type="submit" class="btn btn-primary" ng-disabled="formMsg.$invalid">Send</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

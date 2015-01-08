@@ -19,6 +19,7 @@ module.exports = (grunt) ->
           "bower_components/angular/angular.js",
           "bower_components/angular-route/angular-route.js",
           "bower_components/angular-socket-io/socket.js"
+          "bower_components/moment/moment.js"
         ],
         dest: "build/app/js/lib.js"
     copy:
