@@ -1,28 +1,36 @@
-<div class="container-fluid" ng-controller="IndexController as index">
-  <div class="row">
-    <div class="col-xs-12">
-      <h1>chat.js</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-9 col-md-10">
-      <div class="well" ng-repeat="message in index.messages">
-        [{{ message.timestamp | date:"mediumTime" }}] {{ message.user }}:  {{ message.payload }}
+<div ng-controller="IndexController as index">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div message="message" ng-repeat="message in index.messages"></div>
+      </div>
+      <div class="col-md-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Currently online</h3>
+          </div>
+          <div class="panel-body">
+            User
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-xs-3 col-md-1">
-      clist
-    </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <form name="formMsg" class="form-inline" ng-submit="index.send()" novalidate>
-        <div class="form-group">
-          <label for="inputMsg" class="control-label">Message</label>
-          <input type="text" class="form-control" id="inputMsg" ng-model="index.currentPayload" required />
-          <button type="submit" class="btn btn-primary" ng-disabled="formMsg.$invalid">Send</button>
+  <div class="navbar-message-container navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <form name="formMsg" ng-submit="index.send()" novalidate>
+            <div class="input-group">
+              <span class="input-group-addon">User</span>
+              <input type="text" class="form-control" id="inputMsg" ng-model="index.currentPayload" required />
+              <span class="input-group-btn">
+                <button class="btn btn-primary">Send</button>
+              </span>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
