@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <div message="message" ng-repeat="message in index.messages"></div>
+        <div message="message" ng-repeat="message in index.messages | orderBy:message.timestamp"></div>
       </div>
       <div class="col-md-3">
         <div class="panel panel-primary">
