@@ -4,7 +4,8 @@
   "description": "chat.js",
   "main": "app.js",
   "scripts": {
-    "start": "coffee -w server.coffee"
+    "start": "coffee -w lib/server.coffee",
+    "test": "mocha test/**/*.spec.coffee"
   },
   "repository": {
     "type": "git",
@@ -36,5 +37,11 @@
     "moment": "^2.9.0",
     "morgan": "^1.5.1",
     "socket.io": "^1.2.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "grunt-mocha": "^0.4.11",
+    "mocha": "^2.1.0",
+    "should": "^4.6.0"
   }
 }

@@ -6,7 +6,7 @@ module.exports = (grunt) ->
       options:
         configFile: 'coffeelint.json'
       app: ['app/**/*.coffee'],
-      server: ['server.coffee']
+      server: ['lib/**/*.coffee']
     coffee:
       app:
         options:
