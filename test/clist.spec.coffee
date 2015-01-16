@@ -7,7 +7,7 @@ describe 'Clist', () ->
   beforeEach () ->
     clist = new Clist ['Alice', 'Bob']
 
-  it 'should return a username', () ->
+  it 'should add a random username and return it', () ->
     clist.addRandomUser().should.eql 'Alice'
     clist.getUsernames().should.eql ['Alice']
 

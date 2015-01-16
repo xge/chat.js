@@ -4,7 +4,7 @@
   "description": "chat.js",
   "main": "app.js",
   "scripts": {
-    "start": "coffee -w lib/server.coffee",
+    "start": "grunt && coffee -w lib/server.coffee",
     "test": "mocha test/**/*.spec.coffee"
   },
   "repository": {

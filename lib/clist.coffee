@@ -1,5 +1,5 @@
 module.exports = class Clist
-  constructor: (@randomNames = ['Alice', 'Bob']) ->
+  constructor: (@randomNames) ->
     @list = []
   addUser: (username) ->
     if not (username in @list)
