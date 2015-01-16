@@ -18,7 +18,7 @@ describe 'Clist', () ->
 
   it 'should not add duplicates', () ->
     clist.addUser 'Alice'
-    # clist.addUser 'Alice'
+    clist.addUser 'Alice'
     clist.getUsernames().should.eql ['Alice']
 
   it 'should remove a user', () ->
