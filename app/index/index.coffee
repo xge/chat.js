@@ -11,5 +11,5 @@ app.controller 'IndexController',
       @Socket.on 'clist changed', (clist) =>
         @clist = clist
     send: () ->
-      @Socket.emit 'msg', new Message(moment().valueOf(), @username, @currentPayload)
+      @Socket.emit 'msg', new Message(new Date().getUTCMilliseconds(), @username, @currentPayload)
       delete @currentPayload
