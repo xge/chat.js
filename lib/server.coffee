@@ -18,7 +18,7 @@ app.use bodyParser.json()
 app.use morgan(config.logger)
 app.use express.static(path.join(__dirname, '../build/app'))
 
-clist = new Clist ['Alice', 'Bob', 'Charlene', 'Denzel', 'Edgar', 'Fausto', 'Gary', 'Harriet', 'Ingo', 'Jockel', 'Kid']
+clist = new Clist()
 
 # GET /
 app.get '/', (req, res) ->
