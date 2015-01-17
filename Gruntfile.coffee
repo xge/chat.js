@@ -30,6 +30,7 @@ module.exports = (grunt) ->
       options:
         base: 'app/'
         module: 'chat.tpl'
+        useStrict: true
       app:
         src: ['app/**/*.tpl.html']
         dest: 'build/app/js/tpl.js'
