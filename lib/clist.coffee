@@ -64,11 +64,11 @@ module.exports = class Clist
   addUser: (username) ->
     if not (username in @list)
       @list.push username
+      username
   addRandomUser: () ->
     username = @randomNames[Math.floor(Math.random() * @randomNames.length)] || 'User'
-    @addUser username
     @randomNames = @randomNames.filter (name) -> name isnt username
-    username
+    @addUser username
   removeUser: (username) ->
     @list = @list.filter (name) -> name isnt username
   getRandomUsernamesAsList: () ->

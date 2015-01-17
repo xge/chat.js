@@ -31,5 +31,7 @@ describe 'Clist', () ->
   it 'should remove a user', () ->
     clist.addUser 'Alice'
     clist.addUser 'Bob'
+    clist.getUsernames().should.eql ['Alice', 'Bob']
+
     clist.removeUser 'Bob'
     clist.getUsernames().should.eql ['Alice']
