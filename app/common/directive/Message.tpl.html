@@ -3,5 +3,6 @@
   <div class="payload">
     {{ message.payload }}<br />
     <small class="timestamp">{{ message.timestamp | date:"HH:mm:ss" }}</small>
+    <div scroll-to ng-if="last"></div>
   </div>
 </div>
