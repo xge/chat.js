@@ -1,8 +1,6 @@
-<div class="message">
-  <div class="col-xs-1">
-    <avatar user="message.user"></avatar>
-  </div>
-  <div class="col-xs-11">
+<div class="message col-xs-12" ng-class="{'me': username === message.user, 'them': username !== message.user}">
+  <avatar user="message.user"></avatar>
+  <div class="payload">
     {{ message.payload }}<br />
     <small class="timestamp">{{ message.timestamp | date:"HH:mm:ss" }}</small>
   </div>

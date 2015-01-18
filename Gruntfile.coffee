@@ -10,7 +10,6 @@ module.exports = (grunt) ->
     coffee:
       app:
         options:
-          compress: true
           join: true
           sourceMap: true
         files:
@@ -46,10 +45,6 @@ module.exports = (grunt) ->
       app:
         files:
           'build/app/css/app.css': 'app/less/app.less'
-    uglify:
-      app:
-        files:
-          'build/app/js/app.min.js': ['build/app/js/app.js', 'build/app/js/tpl.js']
     watch:
       assets:
         files: ['app/less/app.less', 'app/**/*.tpl.html', 'app/index.html']
@@ -60,4 +55,4 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'coffeescript', ['coffeelint', 'coffee']
   grunt.registerTask 'assets', ['less', 'html2js', 'concat:prod', 'copy']
-  grunt.registerTask 'default', ['coffeescript', 'assets', 'uglify']
+  grunt.registerTask 'default', ['coffeescript', 'assets']

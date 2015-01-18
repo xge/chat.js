@@ -53,20 +53,46 @@
 @import "bootswatch.less";
 
 // App specific styles
+body {
+  background: @gray-lighter;
+}
+
 .navbar-message-container {
   padding: @padding-base-vertical;
 }
 
 .avatar {
-  width: 42px;
-  height: 42px;
-  line-height: 42px;
+  @height: 44px;
+  float: left;
+  width: @height;
+  height: @height;
+  line-height: @height;
   text-align: center;
   color: #fff;
 }
 
+.make-payload(@background) {
+  .payload {
+    margin-left: 44px;
+    padding-left: 2px;
+    background: @background;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
 .message {
-  .make-row();
+  margin-bottom: @padding-base-vertical;
+  padding-left: 0;
+  padding-right: 0;
+
+  &.me {
+    .make-payload(#fff)
+  }
+  &.them {
+    .make-payload(#fff)
+  }
   .timestamp {
     color: @gray-light;
   }

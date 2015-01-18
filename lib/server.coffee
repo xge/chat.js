@@ -37,14 +37,13 @@ server.listen config.port, () ->
   debug '%s listening at http://%s:%s', config.name, address.address, address.port
 
 io.on 'connection', (socket) ->
-
+  username = clist.addRandomUser()
   updateClist = () ->
     socket.emit 'clist changed', clist.getUsernames()
     socket.broadcast.emit 'clist changed', clist.getUsernames()
 
-  socket.emit 'msg', new Message(moment().valueOf(), 'System', "Welcome to #{ config.name }")
+  socket.emit 'msg', new Message(moment().valueOf(), 'System', "Hello #{ username } and welcome to #{ config.name }")
 
-  username = clist.addRandomUser()
   socket.emit 'new username', username
   updateClist()
 

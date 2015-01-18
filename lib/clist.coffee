@@ -70,6 +70,7 @@ module.exports = class Clist
     @randomNames = @randomNames.filter (name) -> name isnt username
     @addUser username
   removeUser: (username) ->
+    @randomNames.push username if username isnt 'User'
     @list = @list.filter (name) -> name isnt username
   getRandomUsernamesAsList: () ->
     @randomNames
