@@ -4,6 +4,7 @@
       <div class="col-md-9">
         <div message="message"
           username="index.username"
+          last="$last"          
           ng-repeat="message in index.messages | orderBy:message.timestamp"></div>
       </div>
       <div class="col-md-3">

@@ -33,6 +33,9 @@ module.exports = (grunt) ->
       index:
         files:
           'build/app/index.html': 'app/index.html'
+      jquery:
+        files:
+          'build/app/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js'
     html2js:
       options:
         base: 'app/'

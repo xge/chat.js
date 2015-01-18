@@ -1,6 +1,6 @@
 app.controller 'IndexController',
   class IndexController
-    constructor: (@$scope, @Socket) ->
+    constructor: (@Socket) ->
       @username = ''
       @clist = []
       @messages = []
