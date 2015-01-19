@@ -9,13 +9,11 @@ debug       = require('debug')(config.logger)
 express     = require 'express'
 Message     = require path.join(__dirname, 'message')
 moment      = require 'moment'
-morgan      = require 'morgan'
 
 # bootstrap express
 app = express()
 app.use compression()
 app.use bodyParser.json()
-app.use morgan(config.logger)
 app.use express.static(path.join(__dirname, '../build/app'))
 
 clist = new Clist()
@@ -34,10 +32,12 @@ io          = require('socket.io')(server)
 
 server.listen config.port, () ->
   address = server.address()
-  debug '%s listening at http://%s:%s', config.name, address.address, address.port
+  debug '[%s] %s listening at http://%s:%s', moment().format('HH:mm:ss'), config.name, address.address, address.port
 
 io.on 'connection', (socket) ->
   username = clist.addRandomUser()
+  debug '[%s] %s joined', moment().format('HH:mm:ss'), username
+
   updateClist = () ->
     socket.emit 'clist changed', clist.getUsernames()
     socket.broadcast.emit 'clist changed', clist.getUsernames()
@@ -50,8 +50,10 @@ io.on 'connection', (socket) ->
   socket.on 'disconnect', () ->
     clist.removeUser username
     updateClist()
+    debug '[%s] %s left', moment().format('HH:mm:ss'), username
 
   socket.on 'msg', (msg) ->
     toSend = new Message(msg.timestamp, msg.user, msg.payload)
     socket.emit 'msg', toSend
     socket.broadcast.emit 'msg', toSend
+    debug '[%s] %s: %s', moment().format('HH:mm:ss'), msg.user, msg.payload
