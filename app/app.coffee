@@ -1,6 +1,8 @@
 app = angular.module 'chat', [
-  'btford.socket-io',
-  'chat.tpl',
+  'btford.socket-io'
+  'chat.tpl'
+  'ngEmoticons'
+  'ngSanitize'
   'ngRoute'
 ]
 
