@@ -1,7 +1,7 @@
 <div class="message col-xs-12" ng-class="{'me': username === message.user, 'them': username !== message.user}">
   <avatar user="message.user"></avatar>
   <div class="payload">
-    <div ng-bind-html="message.payload | emoticons"></div>
+    <div ng-bind-html="message.payload"></div>
     <small class="timestamp">{{ message.timestamp | date:"HH:mm:ss" }}</small>
     <div scroll-to ng-if="last"></div>
   </div>
