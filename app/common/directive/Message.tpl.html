@@ -2,7 +2,7 @@
   <avatar user="message.user"></avatar>
   <div class="payload">
     <div ng-bind-html="message.payload"></div>
-    <small class="timestamp">{{ message.timestamp | date:"HH:mm:ss" }}</small>
+    <small class="timestamp">{{ message.timestamp }}</small>
     <div scroll-to ng-if="last"></div>
   </div>
 </div>

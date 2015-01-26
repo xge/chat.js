@@ -32,8 +32,7 @@
               <span class="input-group-addon">{{ index.username }}</span>
               <input type="text" class="form-control" id="inputMsg" ng-model="index.currentPayload" required />
               <span class="input-group-btn">
-                <button class="btn btn-default">*LOL*</button>
-                <button class="btn btn-primary">Send</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="formMsg.$invalid">Send</button>
               </span>
             </div>
           </form>
