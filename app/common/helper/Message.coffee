@@ -1,2 +1,2 @@
 class Message
-  constructor: (@timestamp, @user, @payload, @type = 'msg') ->
+  constructor: (@timestamp = new Date().getTime(), @user, @payload, @type = 'msg') ->

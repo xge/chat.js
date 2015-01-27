@@ -1,4 +1,6 @@
+moment = require 'moment'
+
 class Message
-  constructor: (@timestamp, @user, @payload) ->
+  constructor: (@timestamp = moment().valueOf(), @user, @payload) ->
 
 exports = module.exports = Message
