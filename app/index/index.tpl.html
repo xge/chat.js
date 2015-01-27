@@ -33,7 +33,7 @@
         <div class="col-md-9">
           <form name="formMsg" ng-submit="index.send()" novalidate>
             <div class="input-group">
-              <span class="input-group-addon">{{ index.username }}</span>
+              <span class="input-group-addon" title="That's your name!">{{ index.username }}:</span>
               <input type="text" class="form-control" id="inputMsg" ng-model="index.currentPayload" required />
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-primary"
