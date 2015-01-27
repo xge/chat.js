@@ -1,2 +1,2 @@
 class Message
-  constructor: (@timestamp, @user, @payload) ->
+  constructor: (@timestamp, @user, @payload, @type = 'msg') ->
