@@ -13,10 +13,8 @@ app.controller 'IndexController',
         )
       @Socket.on 'connect', () =>
         @has_error = false
-        console.log 'Succesfully connected.'
       @Socket.on 'connect_error', (e) =>
         @has_error = true
-        console.log 'Something disconnected.', e
       @Socket.on 'new username', (name) =>
         @username = name
       @Socket.on 'clist changed', (clist) =>
