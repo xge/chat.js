@@ -1,6 +1,7 @@
 app.controller 'IndexController',
   class IndexController
     constructor: (@$filter, @Socket, @HtmlHelper) ->
+      @has_error = false
       @username = ''
       @clist = []
       @messages = []
@@ -10,6 +11,12 @@ app.controller 'IndexController',
           data.user
           $filter('emoticons')(data.payload)
         )
+      @Socket.on 'connect', () =>
+        @has_error = false
+        console.log 'Succesfully connected.'
+      @Socket.on 'connect_error', (e) =>
+        @has_error = true
+        console.log 'Something disconnected.', e
       @Socket.on 'new username', (name) =>
         @username = name
       @Socket.on 'clist changed', (clist) =>

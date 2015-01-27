@@ -6,6 +6,10 @@
           username="index.username"
           last="$last"
           ng-repeat="message in index.messages"></div>
+        <div class="message has-error" ng-if="index.has_error">
+          Currently I am not able to connect to the server. Please wait, while I try again!
+          <div scroll-to></div>
+        </div>
       </div>
       <div class="col-md-3">
         <div class="panel panel-primary">
@@ -32,7 +36,8 @@
               <span class="input-group-addon">{{ index.username }}</span>
               <input type="text" class="form-control" id="inputMsg" ng-model="index.currentPayload" required />
               <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" ng-disabled="formMsg.$invalid">Send</button>
+                <button type="submit" class="btn btn-primary"
+                  ng-disabled="index.has_error || formMsg.$invalid">Send</button>
               </span>
             </div>
           </form>
