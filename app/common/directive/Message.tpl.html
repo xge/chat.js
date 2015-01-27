@@ -2,7 +2,7 @@
   <avatar user="message.user"></avatar>
   <div class="payload">
     <div ng-bind-html="message.payload"></div>
-    <small class="timestamp">{{ message.timestamp }}</small>
+    <small class="timestamp">{{ message.timestamp }} by {{ message.user }}</small>
     <div scroll-to ng-if="last"></div>
   </div>
 </div>
