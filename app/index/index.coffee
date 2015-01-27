@@ -30,7 +30,7 @@ app.controller 'IndexController',
         )
     send: () ->
       @Socket.emit 'msg', new Message(
-        new Date().getTime()
+        null
         @username
         @HtmlHelper.htmlEntities @currentPayload
       )

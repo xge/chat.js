@@ -48,15 +48,16 @@ io.on 'connection', (socket) ->
     all clist.getUsernames(), 'clist changed'
 
   socket.emit 'new username', username
-  all new Message(moment().valueOf(), ANNOUNCER, username), 'announce:join'
+  all new Message(null, ANNOUNCER, username), 'announce:join'
   updateClist()
 
   socket.on 'disconnect', () ->
     clist.removeUser username
     updateClist()
-    all new Message(moment().valueOf(), ANNOUNCER, username), 'announce:leave'
+    all new Message(null, ANNOUNCER, username), 'announce:leave'
     debug '[%s] %s left', moment().format('HH:mm:ss'), username
 
   socket.on 'msg', (msg) ->
-    all new Message(msg.timestamp, msg.user, msg.payload)
-    debug '[%s] %s: %s', moment().format('HH:mm:ss'), msg.user, msg.payload
+    msg = new Message(null, msg.user, msg.payload)
+    all msg
+    debug '[%s] %s: %s', moment(msg.timestamp).format('HH:mm:ss'), msg.user, msg.payload
