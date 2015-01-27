@@ -35,25 +35,28 @@ server.listen config.port, () ->
   debug '[%s] %s listening at http://%s:%s', moment().format('HH:mm:ss'), config.name, address.address, address.port
 
 io.on 'connection', (socket) ->
+  ANNOUNCER = 'Announcer'
   username = clist.addRandomUser()
   debug '[%s] %s joined', moment().format('HH:mm:ss'), username
 
-  updateClist = () ->
-    socket.emit 'clist changed', clist.getUsernames()
-    socket.broadcast.emit 'clist changed', clist.getUsernames()
+  # Transmit a message to all connected clients.
+  all = (msg, event = 'msg') ->
+    socket.emit event, msg
+    socket.broadcast.emit event, msg
 
-  socket.emit 'msg', new Message(moment().valueOf(), 'System', "Hello #{ username } and welcome to #{ config.name }")
+  updateClist = () ->
+    all clist.getUsernames(), 'clist changed'
 
   socket.emit 'new username', username
+  all new Message(moment().valueOf(), ANNOUNCER, username), 'announce:join'
   updateClist()
 
   socket.on 'disconnect', () ->
     clist.removeUser username
     updateClist()
+    all new Message(moment().valueOf(), ANNOUNCER, username), 'announce:leave'
     debug '[%s] %s left', moment().format('HH:mm:ss'), username
 
   socket.on 'msg', (msg) ->
-    toSend = new Message(msg.timestamp, msg.user, msg.payload)
-    socket.emit 'msg', toSend
-    socket.broadcast.emit 'msg', toSend
+    all new Message(msg.timestamp, msg.user, msg.payload)
     debug '[%s] %s: %s', moment().format('HH:mm:ss'), msg.user, msg.payload
