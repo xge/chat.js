@@ -1,7 +1,7 @@
 <div ng-switch="message.type">
   <div class="message announcement col-xs-12"
-    ng-switch-when="announcement"
-    ng-bind="message.payload">
+    ng-switch-when="announcement">
+    {{ ::message.payload }}
   </div>
   <div class="message col-xs-12"
     ng-class="{'me': username === message.user, 'them': username !== message.user}"
@@ -9,7 +9,7 @@
     <avatar user="message.user"></avatar>
     <div class="payload">
       <div ng-bind-html="message.payload"></div>
-      <small class="timestamp">{{ message.timestamp }} by {{ message.user }}</small>
+      <small class="timestamp">{{ ::message.timestamp }} by {{ ::message.user }}</small>
     </div>
   </div>
   <div scroll-to ng-if="last"></div>

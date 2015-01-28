@@ -2,10 +2,22 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-9 col-md-9 col-lg-12">
-        <div message="message"
-          username="index.username"
-          last="$last"
-          ng-repeat="message in index.messages"></div>
+        <div ng-repeat="message in index.messages">
+          <div class="message announcement col-xs-12"
+            ng-if="message.type === 'announcement'">
+            {{ ::message.payload }}
+          </div>
+          <div class="message col-xs-12"
+            ng-class="{'me': username === index.username, 'them': username !== index.username}"
+            ng-if="message.type === 'msg'">
+            <avatar user="index.username"></avatar>
+            <div class="payload">
+              <div ng-bind-html="message.payload"></div>
+              <small class="timestamp">{{ ::message.timestamp }} by {{ ::index.username }}</small>
+            </div>
+          </div>
+          <div scroll-to ng-if="$last"></div>
+        </div>
         <div class="message has-error" ng-if="index.has_error">
           Currently I am not able to connect to the server. Please wait, while I try again!
           <div scroll-to></div>
@@ -20,7 +32,7 @@
     <div class="panel-body">
       <ul class="list-unstyled">
         <li ng-repeat="user in index.clist">
-          {{ user }}
+          {{ ::user }}
         </li>
       </ul>
     </div>
