@@ -10,10 +10,10 @@
           <div class="message col-xs-12"
             ng-class="{'me': username === index.username, 'them': username !== index.username}"
             ng-if="message.type === 'msg'">
-            <avatar user="index.username"></avatar>
+            <avatar user="message.user"></avatar>
             <div class="payload">
               <div ng-bind-html="message.payload"></div>
-              <small class="timestamp">{{ ::message.timestamp }} by {{ ::index.username }}</small>
+              <small class="timestamp">{{ ::message.timestamp }} by {{ ::message.user }}</small>
             </div>
           </div>
           <div scroll-to ng-if="$last"></div>
