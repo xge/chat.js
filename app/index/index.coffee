@@ -9,7 +9,7 @@ app.controller 'IndexController',
         @messages.push new Message(
           $filter('date')(data.timestamp, 'HH:mm:ss')
           data.user
-          $filter('emoticons')(data.payload)
+          @sanitize data.payload
         )
       @Socket.on 'connect', () =>
         @has_error = false
@@ -33,10 +33,13 @@ app.controller 'IndexController',
           "#{ data.payload } left the conversation."
           'announcement'
         )
+    sanitize: (text) ->
+      text = @$filter('linky')(text, '_blank')
+      text = @$filter('emoticons')(text)
     send: () ->
       @Socket.emit 'msg', new Message(
         null
         @username
-        @HtmlHelper.htmlEntities @currentPayload
+        @currentPayload
       )
       delete @currentPayload
