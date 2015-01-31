@@ -20,7 +20,7 @@
     "angular-route": "~1.3.9",
     "angular-socket-io": "~0.7.0",
     "jquery": "~2.1.3",
-    "ng-emoticons": "*",
+    "ng-emoticons": "https://github.com/xge/ngEmoticons.git",
     "angular-sanitize": "~1.3.9"
   },
   "resolutions": {
