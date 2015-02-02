@@ -15,15 +15,12 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.1",
-    "angular": "~1.3.9",
-    "angular-route": "~1.3.9",
-    "angular-socket-io": "~0.7.0",
-    "jquery": "~2.1.3",
-    "ng-emoticons": "*",
-    "angular-sanitize": "~1.3.9"
-  },
-  "resolutions": {
-    "angular": "~1.3.9"
+    "bootstrap": "~3.3.*",
+    "angular": "~1.3.10",
+    "angular-route": "~1.3.*",
+    "angular-socket-io": "~0.7.*",
+    "jquery": "~2.1.*",
+    "ng-emoticons": "https://github.com/xge/ngEmoticons.git",
+    "angular-sanitize": "~1.3.*"
   }
 }
