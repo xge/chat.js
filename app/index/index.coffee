@@ -1,6 +1,9 @@
 app.controller 'IndexController',
   class IndexController
-    constructor: (@$filter, @Socket, @HtmlHelper) ->
+    constructor: ($filter, Socket, HtmlHelper) ->
+      @$filter = $filter
+      @Socket = Socket
+      @HtmlHelper = HtmlHelper
       @has_error = false
       @username = ''
       @clist = []
