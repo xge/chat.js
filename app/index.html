@@ -25,6 +25,9 @@
     </div>
   </div>
   <div ng-view></div>
+  <div ng-controller="SoundNotificationController as sound">
+      <audio style="display:none; width: 0px; height: 0px;" id="audioNotifier" src="notif.ogg" controls preload="auto" autobuffer></audio>
+  </div>
   <script src="js/lib.js"></script>
   <script src="js/app.js"></script>
   <script src="js/tpl.js"></script>

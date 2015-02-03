@@ -52,6 +52,9 @@ module.exports = (grunt) ->
             dest: 'build/app/js/'
             filter: 'isFile'
         }]
+      notif:
+        files:
+          'build/app/notif.ogg': 'app/notif.ogg'
     html2js:
       options:
         base: 'app/'
