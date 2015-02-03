@@ -11,7 +11,6 @@ module.exports = (grunt) ->
       app:
         options:
           join: true
-          sourceMap: true
         files:
           'build/app/js/app.js': ['app/**/*.coffee']
     concat:
@@ -61,6 +60,9 @@ module.exports = (grunt) ->
       app:
         src: ['app/**/*.tpl.html']
         dest: 'build/app/js/tpl.js'
+    karma:
+      unit:
+        configFile: 'karma.conf.js'
     less:
       app:
         files:
@@ -73,6 +75,7 @@ module.exports = (grunt) ->
         files: ['app/**/*.coffee']
         tasks: ['coffeescript']
 
-  grunt.registerTask 'coffeescript', ['coffeelint', 'coffee']
   grunt.registerTask 'assets', ['less', 'html2js', 'concat', 'copy']
+  grunt.registerTask 'coffeescript', ['coffeelint', 'coffee']
   grunt.registerTask 'default', ['coffeescript', 'assets']
+  grunt.registerTask 'test', ['default', 'karma']

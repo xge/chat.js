@@ -1,6 +1,6 @@
 app.controller 'IndexController',
   class IndexController
-    constructor: ($filter, Socket, HtmlHelper) ->
+    constructor: ($filter, Socket, HtmlHelper, NotificationService) ->
       @$filter = $filter
       @Socket = Socket
       @HtmlHelper = HtmlHelper
@@ -14,6 +14,7 @@ app.controller 'IndexController',
           data.user
           @sanitize data.payload
         )
+        NotificationService.notify()
       @Socket.on 'connect', () =>
         @has_error = false
       @Socket.on 'connect_error', (e) =>

@@ -1,4 +1,4 @@
-Clist = require '../lib/clist'
+Clist = require '../../lib/clist.coffee'
 
 describe 'Clist', () ->
 
