@@ -20,11 +20,11 @@ clist = new Clist()
 
 # GET /
 app.get '/', (req, res) ->
-  res.sendfile path.join(__dirname, '../build/index.html')
+  res.sendFile path.join(__dirname, '../build/index.html')
 
 # GET /config
 app.get '/config', (req, res) ->
-  res.sendfile 'config.json'
+  res.sendFile path.join(__dirname, 'config.json')
 
 # bootstrap socket.io
 server      = require('http').Server(app)
