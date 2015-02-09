@@ -69,6 +69,13 @@ module.exports = class Clist
     username = @randomNames[Math.floor(Math.random() * @randomNames.length)] || 'User'
     @randomNames = @randomNames.filter (name) -> name isnt username
     @addUser username
+  rename: (oldUsername, newUsername) ->
+    if (oldUsername in @list)
+      @removeUser(oldUsername)
+      @addUser(newUsername)
+      return newUsername
+    else
+      return oldUsername
   removeUser: (username) ->
     @randomNames.push username if username isnt 'User'
     @list = @list.filter (name) -> name isnt username

@@ -35,3 +35,23 @@ describe 'Clist', () ->
 
     clist.removeUser 'Bob'
     clist.getUsernames().should.eql ['Alice']
+
+  it 'should rename a user', () ->
+    oldUsername = 'Bert'
+    newUsername = 'Pferd'
+    clist.addUser oldUsername
+    clist.rename(oldUsername, newUsername).should.eql newUsername
+
+  it 'should rename a user multiple times', () ->
+    oldUsername = 'Bert'
+    newUsername = 'Pferd'
+    otherUsername = 'Schwer'
+    clist.addUser oldUsername
+    clist.rename(oldUsername, newUsername).should.eql newUsername
+    clist.rename(newUsername, otherUsername).should.eql otherUsername
+
+  it 'should rename a user with a multi-word username', () ->
+    oldUsername = 'Bert'
+    newUsername = 'Pferd Schwert'
+    clist.addUser oldUsername
+    clist.rename(oldUsername, newUsername).should.eql newUsername

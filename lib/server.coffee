@@ -3,6 +3,7 @@ path        = require 'path'
 
 bodyParser  = require 'body-parser'
 Clist       = require path.join(__dirname, 'clist')
+Parser      = require path.join(__dirname, 'Parser')
 config      = require '../config.json'
 CONST       = require path.join(__dirname, 'constants')
 compression = require 'compression'
@@ -22,6 +23,7 @@ app.use bodyParser.json()
 app.use express.static(path.join(__dirname, '../build/app'))
 
 clist = new Clist()
+parser = new Parser();
 
 # GET /
 app.get '/', (req, res) ->
@@ -66,6 +68,25 @@ io.on EVENTS.CONNECT, (socket) ->
     debug '[%s] %s left', moment().format(DATE_FORMAT), username
 
   socket.on EVENTS.MESSAGE, (msg) ->
-    msg = new Message(null, msg.user, msg.payload)
-    all msg
-    debug '[%s] %s: %s', moment(msg.timestamp).format(DATE_FORMAT), msg.user, msg.payload
+    cmd = parser.parse(msg)
+    switch cmd.action
+      when 'help'
+        helpMessages = [
+          '/help for this helpscreen'
+          '/name $new to rename to $new (if it\'s not already taken)'
+        ]
+        for helpMessage in helpMessages
+          socket.emit EVENTS.MESSAGE, new Message(null, CONST.ANNOUNCER, helpMessage)
+        break
+      when 'name'
+        tokens = msg.payload.match(/\w+|"[^"]+"/g)
+        newUsername = tokens[1]
+        if /\s/g.test(newUsername)
+          newUsername = newUsername.slice(0, -1).slice(1)
+        username = clist.rename(username, newUsername)
+        socket.emit EVENTS.USER_NEW, username
+        updateClist()
+        break
+      else
+        all cmd.msg
+        debug '[%s] %s: %s', moment(msg.timestamp).format(DATE_FORMAT), cmd.msg.user, cmd.msg.payload
