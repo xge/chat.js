@@ -12,7 +12,7 @@ module.exports = (grunt) ->
         options:
           join: true
         files:
-          'build/app/js/app.js': ['app/**/*.coffee']
+          'build/app/js/app.js': ['lib/CONSTANTS.coffee', 'app/**/*.coffee']
     concat:
       dev:
         src: [

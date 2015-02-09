@@ -14,3 +14,6 @@ app.config [
     .otherwise
       redirectTo: '/'
 ]
+
+# CONSTANTS is copied via grunt. AWESOME!
+app.constant 'CONST', CONSTANTS

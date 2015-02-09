@@ -1,6 +1,9 @@
 app.controller 'IndexController',
   class IndexController
-    constructor: ($filter, Socket, HtmlHelper, NotificationService) ->
+    constructor: ($filter, CONST, Socket, HtmlHelper, NotificationService) ->
+      # ###
+      # Initialize properties
+      # ###
       @$filter = $filter
       @Socket = Socket
       @HtmlHelper = HtmlHelper
@@ -8,38 +11,65 @@ app.controller 'IndexController',
       @username = ''
       @clist = []
       @messages = []
-      @Socket.on 'msg', (data) =>
+      EVENTS = CONST.EVENTS
+
+      # ###
+      # Socket.io setup
+      # ###
+
+      # Receive message
+      @Socket.on EVENTS.MESSAGE, (data) =>
         @messages.push new Message(
-          $filter('date')(data.timestamp, 'HH:mm:ss')
+          $filter('date')(data.timestamp, CONST.DATE_FORMAT)
           data.user
           @sanitize data.payload
         )
         NotificationService.notify()
-      @Socket.on 'connect', () =>
+
+      # User connects
+      @Socket.on EVENTS.CONNECT, () =>
         @has_error = false
-      @Socket.on 'connect_error', (e) =>
+
+      # Connection to the backend is lost
+      @Socket.on 'connect_error', () =>
         @has_error = true
-      @Socket.on 'new username', (name) =>
+
+      # Backend assigns username
+      @Socket.on EVENTS.USER_NEW, (name) =>
         @username = name
-      @Socket.on 'clist changed', (clist) =>
+
+      # Clist changed (e.g. user joins/leaves)
+      @Socket.on EVENTS.CLIST_UPDATE, (clist) =>
         @clist = clist
-      @Socket.on 'announce:join', (data) =>
+
+      # User joins
+      @Socket.on EVENTS.ANNOUNCE_JOIN, (data) =>
         @messages.push new Message(
-          $filter('date')(data.timestamp, 'HH:mm:ss')
+          $filter('date')(data.timestamp, CONST.DATE_FORMAT)
           data.user
           "#{ data.payload } joined the conversation."
           'announcement'
         )
-      @Socket.on 'announce:leave', (data) =>
+
+      # User leaves
+      @Socket.on EVENTS.ANNOUNCE_LEAVE, (data) =>
         @messages.push new Message(
-          $filter('date')(data.timestamp, 'HH:mm:ss')
+          $filter('date')(data.timestamp, CONST.DATE_FORMAT)
           data.user
           "#{ data.payload } left the conversation."
           'announcement'
         )
+
+    # Adds links and emoticons to the string.
+    #
+    # @param [String] text the message to convert
+    #
+    # @return [String] ready-to-use HTML
     sanitize: (text) ->
       text = @$filter('linky')(text, '_blank')
       text = @$filter('emoticons')(text)
+
+    # Submit `@currentPayload` to the backend.
     send: () ->
       @Socket.emit 'msg', new Message(
         null
